@@ -1,0 +1,22 @@
+<html>
+<body>
+<script>
+var url = "http://192.168.43.253:8080/edit_book";
+var data = {"id":"1","author_id":"6","title":"hello world"};
+var json = JSON.stringify(data);
+var xhr = new XMLHttpRequest();
+xhr.open("PUT", url, true);
+xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+xhr.onload = function () {
+	var users = JSON.parse(xhr.responseText);
+	if (xhr.readyState == 4 && xhr.status == "200") {
+		console.table(users);
+	} else {
+		console.error(users);
+	}
+}
+xhr.send(json);
+alert("data sent");
+</script>
+</body>
+</html>

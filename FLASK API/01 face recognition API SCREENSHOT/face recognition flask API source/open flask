@@ -1,0 +1,5 @@
+1.export FLASK_APP=run_app
+2.flask run
+
+
+source flask-env/bin/activate

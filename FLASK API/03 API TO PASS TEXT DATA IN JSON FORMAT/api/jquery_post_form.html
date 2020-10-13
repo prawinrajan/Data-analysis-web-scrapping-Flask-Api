@@ -1,0 +1,85 @@
+<html>
+<head>
+<style>
+body {
+  margin: 2em auto;
+  max-width: 600px;
+}
+
+form div {
+    margin-bottom: 0.5em;
+}
+form div label, form div input {
+    display: block;
+    margin-bottom: 0.3em;
+}
+header {
+contentType: "application/json; charset=utf-8",
+				dataType: "json"
+}
+</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+
+(function() {
+	function toJSONString( form ) {
+		var obj = {};
+		var elements = form.querySelectorAll( "input" );
+		for( var i = 0; i < elements.length; ++i ) {
+			var element = elements[i];
+			var name = element.name;
+			var value = element.value;
+
+			if( name ) {
+				obj[ name ] = value;
+			}
+		}
+
+		return JSON.stringify( obj );
+	}
+
+	document.addEventListener( "DOMContentLoaded", function() {
+		var form = document.getElementById( "test" );
+		var output = document.getElementById( "output" );
+		form.addEventListener( "submit", function( e ) {
+			e.preventDefault();
+			var json = toJSONString( this );
+			$.post()
+			output.innerHTML = json;
+			const Http = new XMLHttpRequest();
+const url='http://192.168.43.253:8080/book';
+Http.open("POST",url,True);
+Http.setRequestHeader('Content-type','application/json; charset=utf-8');
+Http.send(json);
+
+Http.onreadystatechange = (e) => {
+  console.log(Http.responseText)
+}
+
+		}, false);
+
+	});
+
+})();
+</script>
+</head>
+<body>
+<h1>POST FORM</h1>>
+<header>
+<form id="test" action="http://192.168.43.253:8080/book#" method="post">
+
+    <div class="form-group">
+        <label for="name">author_id</label>
+        <input class="form-control" type="number" name="author_id"  id="password" />
+    </div>
+    <div class="form-group">
+        <label for="name">title</label>
+        <input class="form-control" type="text" name="title" id="name" />
+    </div>
+    <p>
+        <input type="submit" value="Send" class="btn btn-primary btn-block" />
+    </p>
+</form>	</header>
+<pre id="output"></pre>
+</body>
+</html>
